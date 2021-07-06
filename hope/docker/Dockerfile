@@ -48,6 +48,7 @@ RUN chmod +x ./init.sh && \
 RUN apt-get -y install build-essential && \
 	curl -sL https://deb.nodesource.com/setup_8.x | bash && \
 	apt-get install --yes nodejs && \
+	apt-get install npm && \
 	node -v && \
 	npm -v && \ 
 	npm i -g nodemon && \
