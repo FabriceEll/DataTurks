@@ -1,12 +1,3 @@
-FROM maven:3.8-openjdk-8 as builder
-ENV BASE_DIR=/home/dataturks
-RUN mkdir $BASE_DIR
-COPY ./hope ${BASE_DIR}
-WORKDIR ${BASE_DIR}/hope
-RUN mvn build
-
-
-
 FROM openjdk:8-jdk as final
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -39,7 +30,7 @@ COPY $LOCAL_DOCKER_DIR/onprem-dataturks.com.conf /etc/apache2/sites-available/00
 
 
 RUN a2enmod proxy_http && \
-    a2enmod php7.0 && \
+    a2enmod php7.3 && \
     a2ensite onprem-dataturks.com.conf
 
 
