@@ -25,7 +25,7 @@ RUN	apt-get update && \
 	apt-get install -y libapache2-mod-php && \
 	apt-get clean
 
-
+RUN ls -alh ${LOCAL_DOCKER_DIR}
 COPY $LOCAL_DOCKER_DIR/onprem-dataturks.com.conf /etc/apache2/sites-available/
 COPY $LOCAL_DOCKER_DIR/onprem-dataturks.com.conf /etc/apache2/sites-available/000-default.conf
 
