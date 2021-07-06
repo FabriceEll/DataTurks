@@ -1,4 +1,13 @@
-FROM openjdk:8-jdk
+FROM maven:3.8-openjdk-8 as builder
+ENV BASE_DIR=/home/dataturks
+RUN mkdir $BASE_DIR
+COPY ./hope ${BASE_DIR}
+WORKDIR ${BASE_DIR}/hope
+RUN mvn build
+
+
+
+FROM openjdk:8-jdk as final
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
@@ -25,7 +34,6 @@ RUN	apt-get update && \
 	apt-get install -y libapache2-mod-php && \
 	apt-get clean
 
-RUN ls -alh ${LOCAL_DOCKER_DIR}
 COPY $LOCAL_DOCKER_DIR/onprem-dataturks.com.conf /etc/apache2/sites-available/
 COPY $LOCAL_DOCKER_DIR/onprem-dataturks.com.conf /etc/apache2/sites-available/000-default.conf
 
